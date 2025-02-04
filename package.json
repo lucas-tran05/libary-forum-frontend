@@ -16,7 +16,7 @@
     "react-highlight-words": "^0.21.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.1.1",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "redux": "^5.0.1",
     "redux-persist": "^6.0.0",
     "uuid": "^11.0.4"
