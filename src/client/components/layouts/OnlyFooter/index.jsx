@@ -3,7 +3,6 @@ import Footer from '../../../../shared/components/footer';
 import { Layout, Row, Col, Typography } from 'antd';
 const { Footer: AntFooter } = Layout;
 const { Title } = Typography;
-const publicUrl = process.env.PUBLIC_URL;
 
 const OnlyFooter = ({ children }) => {
     return (
@@ -24,7 +23,7 @@ const OnlyFooter = ({ children }) => {
                         Libary Forum
                     </Title>
                     <img
-                        src={`${publicUrl}/static/imgs/login.svg`}
+                        src={`${window.location.origin}/static/imgs/login.svg`}
                         alt="Login"
                         style={{
                             width: '65%',
@@ -42,7 +41,7 @@ const OnlyFooter = ({ children }) => {
                     md={12}
                     lg={9}
                     style={{
-                        backgroundColor: 'var(--ant-primary-1)', 
+                        backgroundColor: 'var(--ant-primary-1)',
                         backdropFilter: 'blur(10px)',
                         WebkitBackdropFilter: 'blur(10px)',
                         opacity: 0.8,
