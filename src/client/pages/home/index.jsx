@@ -7,7 +7,6 @@ import CarouselSlide from '../../components/carouselRender';
 import BookService from '../../../shared/services/bookService';
 
 const { Option } = Select;
-const publicUrl = process.env.PUBLIC_URL;
 
 const CardItem = ({ title, text, src, author, date, id }) => {
     return (
@@ -60,9 +59,9 @@ const Home = () => {
         <div style={{ padding: '16px' }} className="custom-scrollbar">
             <Row justify="center">
                 <Carousel autoplay style={{ width: '80vw', marginBottom: '16px' }}>
-                    <CarouselSlide text="Posts and Telecommunications Institute of Technology" image={`${publicUrl}/static/carousel/1.jpg`} position="top" />
-                    <CarouselSlide text="Library Center" image={`${publicUrl}/static/carousel/2.jpg`} />
-                    <CarouselSlide text="Logo PTIT" image={`${publicUrl}/static/carousel/4.jpg`} />
+                    <CarouselSlide text="Posts and Telecommunications Institute of Technology" image={`${window.location.origin}/static/carousel/1.jpg`} position="top" />
+                    <CarouselSlide text="Library Center" image={`${window.location.origin}/static/carousel/2.jpg`} />
+                    <CarouselSlide text="Logo PTIT" image={`${window.location.origin}/static/carousel/4.jpg`} />
                 </Carousel>
             </Row>
 

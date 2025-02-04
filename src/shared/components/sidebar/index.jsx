@@ -7,7 +7,6 @@ import { logoutBook } from '../../../redux/bookSlice';
 import { LogoutOutlined } from '@ant-design/icons';
 
 const { Sider } = Layout;
-const PUBLIC_URL = process.env.PUBLIC_URL;
 
 const SiderComponent = ({ collapsed, onCollapse, items }) => {
     const dispatch = useDispatch();
@@ -22,7 +21,7 @@ const SiderComponent = ({ collapsed, onCollapse, items }) => {
     };
 
     const logoutItem = (
-        <Menu.Item  key="logout"  style={{ color: 'red' }} icon={<LogoutOutlined />} onClick={handleLogout}>
+        <Menu.Item key="logout" style={{ color: 'red' }} icon={<LogoutOutlined />} onClick={handleLogout}>
             Logout
         </Menu.Item>
     );
@@ -37,7 +36,7 @@ const SiderComponent = ({ collapsed, onCollapse, items }) => {
                 left: 0,
                 top: 0,
                 bottom: 0,
-                
+
             }}
         >
             <div
@@ -50,7 +49,7 @@ const SiderComponent = ({ collapsed, onCollapse, items }) => {
                 }}
             >
                 <img
-                    src={`${PUBLIC_URL}/static/imgs/logo-LM.png`}
+                    src={`${window.location.origin}/static/imgs/logo-LM.png`}
                     alt="logo"
                     style={{ width: collapsed ? '50%' : '70%', transition: 'width 0.3s' }}
                     draggable={false}
