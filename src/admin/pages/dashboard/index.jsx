@@ -18,6 +18,7 @@ const AdminDashboard = () => {
     setLoading(true);
     AdminService.getDashboard()
       .then((res) => {
+        console.log(res);
         setDatas(res.data);
         setBooks(res.data.books);
         setUsers(res.data.users);
@@ -90,6 +91,11 @@ const AdminDashboard = () => {
             <Col xs={24} sm={24} md={8} lg={6}>
               <Card bordered={false} hoverable>
                 <Statistic title="Posts" value={datas.total_posts} prefix={<WalletOutlined />} valueStyle={{ color: '#3f8600' }} />
+              </Card>
+            </Col>
+            <Col xs={24} sm={24} md={8} lg={6}>
+              <Card bordered={false} hoverable>
+                <Statistic title="Comments" value={datas.total_comments || 'N/A'} prefix={<WalletOutlined />} valueStyle={{ color: '#1a9ce7' }} />
               </Card>
             </Col>
           </Row>
