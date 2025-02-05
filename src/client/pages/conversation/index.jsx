@@ -33,8 +33,8 @@ const Conversation = () => {
         if (newPost.trim()) {
             const newPostData = {
                 content: newPost,
-                ...(image !== null && { image: image }) 
-            };            
+                ...(image !== null && { image: image })
+            };
             try {
                 const response = await PostService.createPost(newPostData);
                 if (response.success) {
@@ -79,13 +79,13 @@ const Conversation = () => {
                             maxCount={1}
                             beforeUpload={(file) => {
                                 const isImage = file.type.startsWith('image/');
-                                const isSmallEnough = file.size / 1024 / 1024 < 1.5; 
+                                const isSmallEnough = file.size / 1024 / 1024 < 1.5;
                                 if (!isImage) {
-                                    message.error(`${truncateText(file.name,10)} is not an image file`);
+                                    message.error(`${truncateText(file.name, 10)} is not an image file`);
                                     return Upload.LIST_IGNORE;
                                 }
                                 if (!isSmallEnough) {
-                                    message.error(`${truncateText(file.name,10)} is larger than 1,5MB`);
+                                    message.error(`${truncateText(file.name, 10)} is larger than 1,5MB`);
                                     return Upload.LIST_IGNORE;
                                 }
                                 getBase64(file).then((base64String) => setImage(base64String));

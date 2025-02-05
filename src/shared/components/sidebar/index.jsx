@@ -49,7 +49,7 @@ const SiderComponent = ({ collapsed, onCollapse, items }) => {
                 }}
             >
                 <img
-                    src={`${window.location.origin}/static/imgs/logo-LM.png`}
+                    src={`${window.location.origin}/static/imgs/logo-LM.jpg`}
                     alt="logo"
                     style={{ width: collapsed ? '50%' : '70%', transition: 'width 0.3s' }}
                     draggable={false}

@@ -9,7 +9,7 @@ import Title from 'antd/es/typography/Title';
 const { Text } = Typography
 
 const AdminDashboard = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [datas, setDatas] = useState({});
   const [books, setBooks] = useState([]);

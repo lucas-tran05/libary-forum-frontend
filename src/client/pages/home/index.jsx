@@ -38,7 +38,6 @@ const Home = () => {
         setLoading(true);
         try {
             const response = await BookService.getAll(currentPage, perPage);
-            console.log(response);
             if (response.success) {
                 const books = response.data.books;
                 const total_books = response.data.total_books;
