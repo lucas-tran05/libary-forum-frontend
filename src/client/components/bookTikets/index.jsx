@@ -1,4 +1,4 @@
-import { Card, Button, Row, Col, message, Modal, Tag, Image } from 'antd';
+import { Card, Button, Row, Col, message, Modal, Tag, Image, Typography } from 'antd';
 import { EditOutlined, DeleteOutlined, DownloadOutlined, EyeOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { removeBook } from '../../../redux/bookSlice';
@@ -6,6 +6,8 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import React from 'react';
+
+const { Title } = Typography;
 
 const BookTikets = ({ id, img, title, create_date, edit_date, file, status }) => {
     const navigate = useNavigate();
@@ -60,7 +62,7 @@ const BookTikets = ({ id, img, title, create_date, edit_date, file, status }) =>
                         width="100%"
                         src={img}
                         alt={title}
-                        style={{ width: '120px', height: '120px' }}
+                        style={{ width: '120px', height: '120px', objectFit: 'cover' }}
                     />
                 </Col>
 
@@ -70,9 +72,9 @@ const BookTikets = ({ id, img, title, create_date, edit_date, file, status }) =>
                         description={
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                 <div>
-                                    <h3 style={{ fontWeight: 'bold', color: 'var(--ant-primary-8)', margin: '0' }}>
+                                    <Title level={5} style={{ fontWeight: 'bold', color: 'var(--ant-primary-8)', margin: '0' }}>
                                         {title}
-                                    </h3>
+                                    </Title>
                                     <span style={{ fontWeight: 'bold' }}>Upload Date:</span>{' '}
                                     {create_date.split('T')[0]}
                                     <br />
