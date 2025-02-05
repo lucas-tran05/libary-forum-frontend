@@ -1,5 +1,5 @@
-import React from 'react';
-import { Form, Input, Button, Row, Typography, message } from 'antd';
+import React, { useState } from 'react';
+import { Form, Input, Button, Row, Typography, message, Spin } from 'antd';
 import { useDispatch } from 'react-redux';
 import { update } from '../../../redux/userSlice';
 import { useNavigate } from 'react-router-dom';
@@ -11,32 +11,23 @@ const { Text } = Typography;
 const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    // const user = useSelector((state) => state.user.user);
-
+    const [isloading, setIsloading] = useState(false);
     const onFinish = async (values) => {
-        // Connect với API để login
+        setIsloading(true);
         const onAuthFinish = await AuthService.login(values);
-
         if (onAuthFinish.success) {
-            // Fetch user data using the token
             const userData = await getUser(onAuthFinish.token);
-
             if (userData) {
-                // Update the Redux store with the user data
                 dispatch(update(userData));
-
-                // Show success message
+                setIsloading(false);
                 message.success(onAuthFinish.message);
-
-                // Navigate based on the user's role
                 setTimeout(() => {
                     const isAdmin = userData.role === 'admin';
                     isAdmin ? navigate('/admin/dashboard') : navigate('/');
                 }, 500);
-            } else {
-                message.error('Failed to fetch user data.');
             }
         } else {
+            setIsloading(false);
             message.error(onAuthFinish.message);
         }
     };
@@ -79,67 +70,68 @@ const Login = () => {
                     Welcome to Libary Forum, enter your email and password to try it now.
                 </Text>
             </Row>
-
-            <Form
-                name="login"
-                layout="vertical"
-                onFinish={onFinish}
-                size="large"
-                style={{ marginTop: '16px', width: '100%', padding: '16px' }}
-            >
-                <Form.Item
-                    className="custom-form-item"
-                    label="Email address"
-                    name="email"
-                    rules={[
-                        { required: true, message: 'Please input your email!' },
-                        { type: 'email', message: 'Please enter a valid email!' },
-                    ]}
+            {isloading ? <Spin size="large" style={{ marginTop: '32px' }} /> : (
+                <Form
+                    name="login"
+                    layout="vertical"
+                    onFinish={onFinish}
+                    size="large"
+                    style={{ marginTop: '16px', width: '100%', padding: '16px' }}
                 >
-                    <Input placeholder="Enter email" style={{ backgroundColor: 'transparent' }} />
-                </Form.Item>
-                <Form.Item
-                    className="custom-form-item"
-                    label="Password"
-                    name="password"
-                    rules={[
-                        { required: true, message: 'Please input your password!' },
-                        { min: 6, message: 'Password must be at least 6 characters!' },
-                    ]}
-                >
-                    <Input.Password placeholder="Password" style={{ backgroundColor: 'transparent' }} />
-                </Form.Item>
-                <Form.Item className="custom-form-item">
-                    <Button type="primary" htmlType="submit" block style={{ marginTop: '16px' }}>
-                        Login
-                    </Button>
-                </Form.Item>
-                <Form.Item
-                    style={{
-                        fontSize: '14px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        marginTop: '8px',
-                        gap: '4px',
-                    }}
-                >
-                    <span>Don't have an account? </span>
-                    <Button
-                        type="link"
+                    <Form.Item
+                        className="custom-form-item"
+                        label="Email address"
+                        name="email"
+                        rules={[
+                            { required: true, message: 'Please input your email!' },
+                            { type: 'email', message: 'Please enter a valid email!' },
+                        ]}
+                    >
+                        <Input placeholder="Enter email" style={{ backgroundColor: 'transparent' }} />
+                    </Form.Item>
+                    <Form.Item
+                        className="custom-form-item"
+                        label="Password"
+                        name="password"
+                        rules={[
+                            { required: true, message: 'Please input your password!' },
+                            { min: 6, message: 'Password must be at least 6 characters!' },
+                        ]}
+                    >
+                        <Input.Password placeholder="Password" style={{ backgroundColor: 'transparent' }} />
+                    </Form.Item>
+                    <Form.Item className="custom-form-item">
+                        <Button type="primary" htmlType="submit" block style={{ marginTop: '16px' }} loading={isloading}>
+                            Login
+                        </Button>
+                    </Form.Item>
+                    <Form.Item
                         style={{
                             fontSize: '14px',
-                            padding: '0',
-                            lineHeight: 'normal',
-                            color: '#cc0d00',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            marginTop: '8px',
+                            gap: '4px',
                         }}
-                        onClick={() => navigate('/register')}
                     >
-                        Register
-                    </Button>
-                    <span> now</span>
-                </Form.Item>
-            </Form>
+                        <span>Don't have an account? </span>
+                        <Button
+                            type="link"
+                            style={{
+                                fontSize: '14px',
+                                padding: '0',
+                                lineHeight: 'normal',
+                                color: '#cc0d00',
+                            }}
+                            onClick={() => navigate('/register')}
+                        >
+                            Register
+                        </Button>
+                        <span> now</span>
+                    </Form.Item>
+                </Form>
+            )}
         </Row>
     );
 };
