@@ -10,40 +10,62 @@ import Footer from '../../../../shared/components/footer';
 const { Content } = Layout;
 
 const DefaultLayout = ({ children }) => {
-    // Get the sidebar collapse state from localStorage, defaulting to false
-    const stateSibar = localStorage.getItem('stateSibar');
-    const [collapsed, setCollapsed] = useState(stateSibar ? JSON.parse(stateSibar) : false);
+    // Lấy trạng thái sidebar từ localStorage, mặc định là false
+    const initialState = localStorage.getItem('stateSibar');
+    const [collapsed, setCollapsed] = useState(initialState ? JSON.parse(initialState) : false);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    // Get the sidebar items using dispatch and navigate
+    // Lấy danh sách menu từ sidebar
     const menuItems = itemsSibar(dispatch, navigate);
 
     useEffect(() => {
-        // Save the sidebar state to localStorage whenever it changes
+        // Chỉ cập nhật localStorage khi collapsed thay đổi
         localStorage.setItem('stateSibar', JSON.stringify(collapsed));
     }, [collapsed]);
 
     return (
         <Layout style={{ minHeight: '100vh' }}>
-            <SiderComponent collapsed={collapsed} onCollapse={setCollapsed} items={menuItems} />{' '}
-            {/* Truyền mảng items vào đây */}
-            <Layout style={{ marginLeft: collapsed ? 80 : 200, transition: 'margin-left 0.3s' }}>
+            {/* Sidebar */}
+            <SiderComponent collapsed={collapsed} onCollapse={setCollapsed} items={menuItems} />
+
+            {/* Main Layout */}
+            <Layout
+                style={{
+                    marginLeft: collapsed ? 80 : 200,
+                    transition: 'margin-left 0.3s ease-in-out',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    minHeight: '100vh',
+                }}
+            >
                 <Header />
-                <Content style={{ margin: '0' }}>
-                    <div
-                        style={{
-                            padding: '0 16px',
-                            minHeight: 360,
-                            background: 'white',
-                            borderRadius: 8,
-                        }}
-                    >
-                        {children}
-                    </div>
+
+                {/* Nội dung chính */}
+                <Content
+                    style={{
+                        flex: 1, // Giúp nội dung chiếm hết khoảng trống
+                        padding: '16px',
+                        background: 'white',
+                        borderRadius: 8,
+                        minHeight: 360,
+                        overflowY: 'auto',
+                    }}
+                >
+                    {children}
                 </Content>
-                < Footer />
+
+                {/* Footer watermark */}
+                <Footer
+                    style={{
+                        textAlign: 'center',
+                        position: 'relative', // Không để absolute tránh bị che
+                        width: '100%',
+                        background: 'transparent',
+                        padding: '16px 0',
+                    }}
+                />
             </Layout>
         </Layout>
     );

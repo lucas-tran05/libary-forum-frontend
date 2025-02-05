@@ -1,14 +1,10 @@
-/* 
-    Chức năng chính page: Cho phép người dùng đăng ký tài khoản để truy cập thư viện hệ thống 
-    Công nghệ sử dụng: null ( không có công nghệ gì đặc biệt)
-*/
-
 import React, { useState } from 'react';
 import { Form, Input, Button, Row, message, Typography, Spin } from 'antd';
 import AuthService from '../../services/authService';
 import { useNavigate } from 'react-router-dom';
 
 const { Text } = Typography;
+
 const Register = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
@@ -29,41 +25,47 @@ const Register = () => {
             message.error('Something went wrong. Please try again.');
         }
     };
+
     return (
         <Row
             className="shadow"
             style={{
                 borderRadius: '16px',
-                padding: '0 24px',
+                padding: '16px',
                 backgroundColor: 'transparent',
                 border: 'none',
-                width: '65%',
+                width: '100%',
+                maxWidth: '400px', // Giới hạn chiều rộng tối đa
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
+                textAlign: 'center',
             }}
         >
-            <Row>
-                <Text
-                    style={{
-                        color: 'var(--ant-primary-8)',
-                        fontWeight: 'bold',
-                        fontSize: '32px',
-                        marginBottom: '16px',
-                    }}
-                >
-                    Create an Account
-                </Text>
-            </Row>
-            {loading ? <Spin size="large" style={{ marginTop: '32px' }} /> : (
+            <Text
+                style={{
+                    color: 'var(--ant-primary-8)',
+                    fontWeight: 'bold',
+                    fontSize: '28px',
+                    marginBottom: '12px',
+                }}
+            >
+                Create an Account
+            </Text>
+
+            {loading ? (
+                <Spin size="large" style={{ marginTop: '32px' }} />
+            ) : (
                 <Form
                     name="register"
                     layout="vertical"
                     onFinish={onFinish}
                     size="large"
-                    style={{ width: '100%', padding: '16px' }}
+                    style={{
+                        width: '100%',
+                    }}
                 >
-                    {/* Name Field */}
+                    {/* Full Name */}
                     <Form.Item
                         className="custom-form-item"
                         label="Full Name"
@@ -76,7 +78,7 @@ const Register = () => {
                         <Input placeholder="Enter full name" />
                     </Form.Item>
 
-                    {/* Email Field */}
+                    {/* Email */}
                     <Form.Item
                         className="custom-form-item"
                         label="Email address"
@@ -89,7 +91,7 @@ const Register = () => {
                         <Input placeholder="Enter email" />
                     </Form.Item>
 
-                    {/* Phone Number Field */}
+                    {/* Phone Number */}
                     <Form.Item
                         className="custom-form-item"
                         label="Phone Number"
@@ -105,7 +107,7 @@ const Register = () => {
                         <Input placeholder="Enter phone number" />
                     </Form.Item>
 
-                    {/* Password Field */}
+                    {/* Password */}
                     <Form.Item
                         className="custom-form-item"
                         label="Password"
@@ -125,7 +127,7 @@ const Register = () => {
                         </Button>
                     </Form.Item>
 
-                    {/* Login Button */}
+                    {/* Login Button - THÊM marginBottom để tránh footer watermark che mất */}
                     <Form.Item
                         style={{
                             fontSize: '14px',
@@ -134,6 +136,7 @@ const Register = () => {
                             justifyContent: 'center',
                             marginTop: '8px',
                             gap: '4px',
+                            marginBottom: '40px',
                         }}
                     >
                         <span>Already have an account?</span>

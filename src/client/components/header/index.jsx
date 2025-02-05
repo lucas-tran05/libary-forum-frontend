@@ -21,34 +21,47 @@ function Header() {
       style={{
         display: "flex",
         alignItems: "center",
-        padding: "24px",
+        justifyContent: "space-between",
+        flexWrap: "wrap",
+        padding: "12px 16px",
+        background: "#fff",
+        borderBottom: "1px solid #ddd",
+        gap: "8px", // Giảm khoảng cách giữa các phần tử
       }}
     >
-      <Space wrap>
-        <Select
+      {/* Chọn loại tìm kiếm */}
+      <Select
         size="large"
-          defaultValue="name"
-          style={{ width: 150, marginRight: "16px" }}
-          onChange={handleChange}
-          options={[
-            { value: "author", label: "Author" },
-            { value: "name", label: "Name book" },
-            { value: "genre", label: "Genre" },
-          ]}
-        />
-      </Space>
+        defaultValue="name"
+        style={{ width: 140, flexShrink: 0 }}
+        onChange={handleChange}
+        options={[
+          { value: "author", label: "Author" },
+          { value: "name", label: "Name book" },
+          { value: "genre", label: "Genre" },
+        ]}
+      />
+
+      {/* Ô tìm kiếm */}
       <Search
         placeholder="Search for a book or author here"
         allowClear
         enterButton="Search"
         size="large"
         onSearch={onSearch}
-        style={{ flex: 1, marginRight: "16px" }}
+        style={{
+          flex: "1 1 auto",
+          maxWidth: "400px", // Giới hạn độ rộng max
+          minWidth: "200px", // Đảm bảo không bị nhỏ quá trên mobile
+        }}
       />
-      <Divider type="vertical" />
-      <Link to="/profile" style={{ whiteSpace: "nowrap", marginLeft: "16px" }}>
-        <Text strong style={{ fontSize: "18px" }}>
-          Hi, {userValue.full_name}
+
+      <Divider type="vertical" style={{ display: "none" }} />
+
+      {/* Hiển thị thông tin user */}
+      <Link to="/profile">
+        <Text strong style={{ fontSize: "16px", whiteSpace: "nowrap" }}>
+          Hi, {userValue?.full_name || "Guest"}
         </Text>
       </Link>
     </div>
