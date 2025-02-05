@@ -69,8 +69,8 @@ const OnlyFooter = ({ children }) => {
             {/* Footer dạng Watermark */}
             <AntFooter
                 style={{
-                    position: 'fixed',
-                    bottom: '10px',
+                    position: 'absolute',
+                    bottom: '5px',
                     left: '50%',
                     transform: 'translateX(-50%)',
                     width: '100%',

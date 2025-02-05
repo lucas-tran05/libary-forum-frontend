@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { notification } from 'antd';
 import { privateRoutes, publicRoutes, adminRoutes } from './routes';
 import DefaultLayout from './client/components/layouts/DefaultLayout';
 import './shared/styles/GlobalStyle';
@@ -21,6 +22,9 @@ function App() {
             if (expirationTime < currentTime) {
                 dispatch(logout());
                 window.location.href = '/login'; 
+                notification.error({
+                    message: 'Token expired, please login again.',
+                })
             }
         }
     };
