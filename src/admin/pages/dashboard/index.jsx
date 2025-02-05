@@ -18,7 +18,6 @@ const AdminDashboard = () => {
     setLoading(true);
     AdminService.getDashboard()
       .then((res) => {
-        console.log(res);
         setDatas(res.data);
         setBooks(res.data.books);
         setUsers(res.data.users);
